@@ -1,0 +1,6 @@
+main.py
+*.xml
+*.html
+*.pyc
+auth_vars.py
+.idea/
