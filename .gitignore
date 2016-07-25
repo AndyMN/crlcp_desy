@@ -4,3 +4,4 @@ main.py
 *.pyc
 auth_vars.py
 .idea/
+*.odp
