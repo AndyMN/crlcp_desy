@@ -1,7 +1,7 @@
 *** Settings ***
 Variables  auth_vars.py
-Library  CrlCpLib.py    ${BASE_URL}   ${USERNAME}     ${PASSWORD}
-Suite Setup     CHECK CREDENTIALS   # Checks if we can login to the given url with auth vars. If this fails no test will run
+Library  CrlCpLib.py    ${USERNAME}     ${PASSWORD}
+Suite Setup     CHECK CREDENTIALS   ${BASE_URL}         # Checks if we can login to the given url with auth vars. If this fails no test will run
 
 *** Variables ***
 ${BASE_URL}   https://prometheus.desy.de/Users/${USERNAME}/Private/
@@ -12,14 +12,14 @@ ${FILE_NAME}    CMSCalorimeter.png
 
 *** Test Cases ***
 FILE COPY
-    COPY FILE TO    ${FILE_DIR}${FILE_NAME}   ${FILE_NAME}
+    COPY FILE TO    ${FILE_DIR}${FILE_NAME}   ${BASE_URL}${FILE_NAME}
     STATUS CODE SHOULD BE   201
 
 FILE DELETE
-    DELETE FILE  ${FILE_NAME}
+    DELETE FILE  ${BASE_URL}${FILE_NAME}
     STATUS CODE SHOULD BE  204
 
 FILE DOWNLOAD
-    DOWNLOAD FILE AS    testfile     ${FILE_DIR}testfile
+    DOWNLOAD FILE AS    ${BASE_URL}notice    ${FILE_DIR}notice
     STATUS CODE SHOULD BE   200
 
